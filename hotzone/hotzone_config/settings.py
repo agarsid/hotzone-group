@@ -25,7 +25,7 @@ SECRET_KEY = 'ik(du#-md%x62yed&38c5jm6-g(_clmw!ft7mo7p)^qjp^=lm8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://hotzone-se.herokuapp.com/', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['hotzone-se.herokuapp.com/', 'localhost', '127.0.0.1']
 
 
 # Application definition
