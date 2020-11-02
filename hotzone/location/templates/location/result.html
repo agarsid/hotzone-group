@@ -1,0 +1,43 @@
+{% extends "location/index.html" %}
+{% block content %}
+    <div class = "result">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>X-Coordinate</th>
+                <th>Y-Coordinate</th>
+            </tr>
+            <tr>
+                <td><span id="name">{{name}}</span><br></td>
+                <td><span id="address">{{address}}</span><br></td>
+                <td><span id="xcoord">{{x}}</span><br></td>
+                <td><span id="ycoord">{{y}}</span></td>
+            </tr>
+        </table>
+        
+    </div>
+    <div>
+        <form action="/add" type="GET">
+            <input type="text" name="name" id="name" value="{{name}}">
+            <input type="text" name="address" id="address" value="{{address}}">
+            <input type="text" name="x" id="x" value="{{x}}">
+            <input type="text" name="y" id="y" value="{{y}}">
+            <input class= "database" type="submit" value="Add in the Database">
+        </form>
+    </div>
+    <style type="text/css">
+        input#name{
+            display: none;
+        }
+        input#address{
+            display: none;
+        }
+        input#x{
+            display: none;
+        }
+        input#y{
+            display: none;
+        }
+    </style>
+{% endblock %}

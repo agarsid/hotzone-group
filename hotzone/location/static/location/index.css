@@ -1,0 +1,111 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+    background-color: #2c3e50;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.heading{
+    margin-bottom: 20px; 
+    color: beige;
+    font-size: 40px
+}
+table{
+    background: beige;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+}
+  
+.database {
+    
+    box-shadow:inset 0px 0px 15px 3px #23395e;
+    background:linear-gradient(to bottom, #2e466e 5%, #415989 100%);
+    background-color:#2e466e;
+    border-radius:17px;
+    border:1px solid #1f2f47;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:6px 13px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #263666;
+    margin-top: 20px;
+    font-size: larger;
+}
+.database:hover {
+    background:linear-gradient(to bottom, #415989 5%, #2e466e 100%);
+    background-color:#415989;
+}
+.database:active {
+    position:relative;
+    top:1px;
+}
+
+.input {
+    padding: 5px;
+    font-size: 20px;
+    width: 50vw;
+    border-width: 1px;
+    border-color: #810e0e;
+    background-color: #ffffff;
+    color: #000000;
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+}
+.input:focus {
+    outline:none;
+}
+
+.search:focus {
+    outline:none;
+}
+
+.search {
+    font-size: 20px;
+    border-width: 1px;
+    border-color: green;
+    background-color: #ffffff;
+    color: #000000;
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.search:hover{
+    background-color: black;
+    color: white;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.search p{
+    margin: 0;
+    padding: 5px;
+}
+
+.notice {
+    font-size: 20px;
+    color: white;
+}
