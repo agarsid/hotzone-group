@@ -16,7 +16,6 @@ def search(request):
     try:
         res_json = json.loads(res.text)
     except:
-        # return render(request, 'location/index.html', {'input': loc, 'found': False})
         return render(request, 'location/notfound.html', {'input': loc, 'found': False})
 
     resp = res_json[0]
