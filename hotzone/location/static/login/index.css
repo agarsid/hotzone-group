@@ -1,0 +1,140 @@
+body{
+  overflow: hidden;
+}
+
+form {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .headercontainer {
+      font-size: 30px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  }
+  
+  /* Full-width inputs */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Add a hover effect for buttons */
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Center the avatar image inside this container */
+  .headercontainer {
+    text-align: center;
+    margin: 0px 0 12px 0;
+  }
+  
+  /* Avatar image */
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  
+  /* Add padding to containers */
+  .container {
+    align-content: center;
+    width: 40vw;
+    padding: 16px;
+  }
+
+  .logincontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+  
+  /* The "Forgot password" text */
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+  }
+
+  .actioncontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+  .adminlogin{
+      background-color: darkred;
+      width: 50vh;
+      height: 8vh;
+      font-size: large;
+  }
+
+  .stafflogin{
+      background-color: midnightblue;
+      width: 50vh;
+      height: 8vh;
+      font-size: large;
+  }
+
+  .landingform{
+    width: auto;
+    display: flex;
+  }
+
+  .landingcontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.viewdata{
+    background-color: darkred;
+    width: 50vh;
+    height: 8vh;
+    font-size: large;
+}
+
+.createdata{
+    background-color: midnightblue;
+    width: 50vh;
+    height: 8vh;
+    font-size: large;
+}
+
+/* .logout{
+  color: white;
+  background-color:black;
+  width: min-content;
+  padding: 6px;
+  align-self: flex-end;
+} */

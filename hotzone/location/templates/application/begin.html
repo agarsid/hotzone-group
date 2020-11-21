@@ -1,0 +1,19 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+    <title>Hotzone-Begin</title>
+</head>
+<body>
+    <div class="actioncontainer">
+        
+        <div class="headercontainer">
+            <h1 style="margin: 3px;"><b>HotZone</b></h1>
+        </div>
+        <button onclick="window.location.href='/admin'" class="adminlogin" type="submit">Login as Admin</button>
+        <button onclick="window.location.href='/login'" class="stafflogin" type="submit">Login as Staff Member</button>
+    </div>
+</body>
+</html>

@@ -1,14 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate,login,logout
 from .models import Locations
 import requests
 import json
 
 
 def index(request):
-    result = {'input': '', 'found': True, 'inDatabase': False}
-    return render(request, 'location/index.html', result)
-
+    if(request.user.is_authenticated):
+        result = {'input': '', 'found': True, 'inDatabase': False}
+        return render(request, 'location/index.html', result)
+    else:
+        return render(request, 'login/login.html')
+ 
 
 def search(request):
     loc = request.GET.get('query')
@@ -46,3 +50,33 @@ def add(request):
     L.save()
     result = {'input': '', 'found': True, 'inDatabase': True}
     return render(request, 'location/added.html', result)
+
+
+def begin(request):
+    return render(request, 'application/begin.html')
+
+def log(request):
+    return render(request, 'login/login.html')
+
+def logout_view(request):
+    logout(request)
+    return begin(request)
+
+def authenticate_user(request):
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request,user)
+            return render(request, "login/landingpage.html")
+        else:
+            return render(request, "login/login.html", {"isError": True})
+    except:
+        return render(request, 'login/login.html')
+    
+
+def add(request):
+    return render(request, 'application/add2.html')

@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+    <title>Landing Page</title>
+</head>
+<body>
+    {% include 'application/navbar.html' %}
+    <div class="landingcontainer">
+        <form class="landingform" action="action_page.php" method="post">
+            <div class="headercontainer">
+                <h1 style="margin: 3px;"><b>HotZone</b></h1>
+            </div>
+            <button class="viewdata" type="submit">View Patient Data</button>
+            <button class="createdata" type="submit">Create Patient Data</button>
+        </form>
+    </div>
+    
+</body>
+</html>
