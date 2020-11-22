@@ -64,7 +64,7 @@ def get_locs(request):
 
 def getall_case(request):
 
-    # try:
+    try:
         if(request.user.is_authenticated):
 
             ret_data = []
@@ -112,8 +112,8 @@ def getall_case(request):
         else:
             return render(request, 'login/login.html')
             
-    # except:
-    #     return render(request, 'login/login.html')
+    except:
+        return render(request, 'login/login.html')
 
 def addToDb(request):
     try:
