@@ -201,21 +201,25 @@ function fixStepIndicator(n) {
 }
 let search;
 function onSearch(){
-    console.log('searching');
     let location = document.getElementById('location').value;
     console.log('locaton to be searched = '+location);
     let url = 'https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q='+location;
     fetch(url)
         .then(res => {
-  
             return res.json();
         }).then(result => {
-            console.log(result);
-            search = result;
-            console.log(result['length']);
             let list = document.getElementById('location_list');
             list.innerHTML = "";
+            search = result;
+            if(result['length'] < 1){
+              let p = document.createElement("P");
+              p.innerHTML = "No results found! Please try a different search term."
+              list.appendChild(p);
+            }
+            console.log(result);
+            console.log(result['length']);
             for (let i = 0 ; i < result['length'] ;i++){
+                if(result[i]['nameEN'] < 1) continue;
                 let item = document.createElement("DIV");
                 let btn = document.createElement("INPUT");
                 let br = document.createElement("BR");
@@ -269,30 +273,37 @@ $('#search-btn').on('click', function(ev){
     },
     dataType: 'JSON'
   }).done(result => {
-            console.log(result);
-            search = result;
-            console.log(result['length']);
-            console.log('endddddd');
             let list = document.getElementById('location_list');
             list.innerHTML = "";
-            for (let i = 0 ; i < result['length'] ;i++){
-                // let code = ;
-                let item = document.createElement("DIV");
-                let btn = document.createElement("INPUT");
-                let br = document.createElement("BR");
-                btn.setAttribute("type","radio");
-                btn.setAttribute("value",i);
-                btn.setAttribute("name","index");
-                btn.setAttribute("id",i)
-                btn.setAttribute("class","radio");
-                list.appendChild(btn);
-                let address = document.createElement("LABEL");
-                
-                address.setAttribute("for",i);
-                address.innerText = result[i]['nameEN'];
-                
-                list.appendChild(address);
-                list.appendChild(br);
+            search = result;
+            if(result['length'] < 1){
+              let p = document.createElement("P");
+              p.innerHTML = "No results found!"
+              list.appendChild(p);
+            }
+            else{
+              console.log(result);
+              console.log(result['length']);
+              console.log('endddddd');
+              for (let i = 0 ; i < result['length'] ;i++){
+                  // let code = ;
+                  let item = document.createElement("DIV");
+                  let btn = document.createElement("INPUT");
+                  let br = document.createElement("BR");
+                  btn.setAttribute("type","radio");
+                  btn.setAttribute("value",i);
+                  btn.setAttribute("name","index");
+                  btn.setAttribute("id",i)
+                  btn.setAttribute("class","radio");
+                  list.appendChild(btn);
+                  let address = document.createElement("LABEL");
+                  
+                  address.setAttribute("for",i);
+                  address.innerText = result[i]['nameEN'];
+                  
+                  list.appendChild(address);
+                  list.appendChild(br);
+              }
             }
             let a = document.createElement("A");
             a.setAttribute("onclick", "onSearch()");
