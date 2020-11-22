@@ -16,11 +16,11 @@
             {% comment %} <div class="headercontainer">
                 <h1 style="margin: 3px;"><b>HotZone</b></h1>
             </div> {% endcomment %}
-            {% comment %} <div class="searchinput">
-                <input type="text" style="height: 6vh" placeholder="Enter Case ID" name="uname" required>
-                <button class="search" type="submit">Search</button>
-            </div> {% endcomment %}
-            <table>
+            <div class="searchinput">
+                <input type="text" style="height: 6vh" placeholder="Enter Case ID" id ="case_id" name="case_id" required>
+                <button class="search" onclick = "searchCase()" type="submit">Search</button>
+            </div>
+            <table id="result">
                 <col style="width:5%">
                 <col style="width:7%">
                 <col style="width:7%">
@@ -74,4 +74,27 @@
 
 </body>
 
+<script>
+    function searchCase() {
+  
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("case_id");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("result");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+    }
+</script>
 </html>

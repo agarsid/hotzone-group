@@ -215,25 +215,26 @@ function onSearch(){
               let p = document.createElement("P");
               p.innerHTML = "No results found! Please try a different search term."
               list.appendChild(p);
-            }
-            console.log(result);
-            console.log(result['length']);
-            for (let i = 0 ; i < result['length'] ;i++){
-                if(result[i]['nameEN'] < 1) continue;
-                let item = document.createElement("DIV");
-                let btn = document.createElement("INPUT");
-                let br = document.createElement("BR");
-                btn.setAttribute("type","radio");
-                btn.setAttribute("value",i);
-                btn.setAttribute("name","index");
-                btn.setAttribute("id",i)
-                btn.setAttribute("class","radio");
-                list.appendChild(btn);
-                let address = document.createElement("LABEL");
-                address.setAttribute("for",i);
-                address.innerText = result[i]['nameEN'];
-                list.appendChild(address);
-                list.appendChild(br);
+            }else{
+              console.log(result);
+              console.log(result['length']);
+              for (let i = 0 ; i < result['length'] ;i++){
+                  if(result[i]['nameEN'] < 1) continue;
+                  let item = document.createElement("DIV");
+                  let btn = document.createElement("INPUT");
+                  let br = document.createElement("BR");
+                  btn.setAttribute("type","radio");
+                  btn.setAttribute("value",i);
+                  btn.setAttribute("name","index");
+                  btn.setAttribute("id",i)
+                  btn.setAttribute("class","radio");
+                  list.appendChild(btn);
+                  let address = document.createElement("LABEL");
+                  address.setAttribute("for",i);
+                  address.innerText = result[i]['nameEN'];
+                  list.appendChild(address);
+                  list.appendChild(br);
+              }
             }
         });
 }
