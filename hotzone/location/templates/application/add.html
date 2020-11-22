@@ -233,7 +233,7 @@ function onSearch(){
         }).catch(err => {
           let list = document.getElementById('location_list');
           list.innerHTML = "";
-          search = result;
+          search = [];
           let p = document.createElement("P");
           p.innerHTML = "No results found! Please try a different search term."
           list.appendChild(p);
