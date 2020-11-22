@@ -249,7 +249,7 @@ blockquote {
 
 .search {
   background-color: green;
-  width: 25%;
+  width: fit-content;
   height: 6vh;
   
 }
