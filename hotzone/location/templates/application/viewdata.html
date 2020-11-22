@@ -1,0 +1,77 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+
+    <title>View Data</title>
+</head>
+
+<body>
+    {% include 'application/navbar.html' %}
+    <div class="tablecontainer">
+        
+            {% comment %} <div class="headercontainer">
+                <h1 style="margin: 3px;"><b>HotZone</b></h1>
+            </div> {% endcomment %}
+            {% comment %} <div class="searchinput">
+                <input type="text" style="height: 6vh" placeholder="Enter Case ID" name="uname" required>
+                <button class="search" type="submit">Search</button>
+            </div> {% endcomment %}
+            <table>
+                <col style="width:5%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:53%">
+                <thead>
+                    <tr>
+                        <th>CASE ID</th>
+                        <th>VIRUS</th>
+                        <th>DATE CONFIRMED</th>
+                        <th>ORIGIN</th>
+                        <th>PATIENT NAME</th>
+                        <th>D.O.B.</th>
+                        <th>LOCATIONS VISITED</th>
+
+                    </tr>
+                    <thead>
+                    <tbody>
+                        
+                        {% for case in cases %}
+                        <tr>
+                            <td>{{case.case_num}}</td>
+                            <td>{{case.virus}}</td>
+                            <td>{{case.confirm_date}}</td>
+                            <td>{{case.case_class}}</td>
+                            <td>{{case.name}}</td>
+                            <td>{{case.birth_date}}</td>
+                            <td>    
+                                {% for location in case.locations %}
+                                <h3>{{location.place_name}}</h3>
+                                <ul>
+                                    <li> <strong>Address: </strong>{{location.address}}</li>
+                                    <li> <strong>Date From: </strong>{{location.date_from}}</li>
+                                    <li> <strong>Date To: </strong>{{location.date_to}}</li>
+                                    <li> <strong>X-Coordinate:</strong> {{location.x_coord}}</li>
+                                    <li> <strong>Y-Coordinate:</strong> {{location.y_coord}}</li>
+                                    <li> <strong>Category: </strong>{{location.category}}</li>
+                                </ul>    
+                                {% endfor %}
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+        
+    </div>
+
+</body>
+
+</html>

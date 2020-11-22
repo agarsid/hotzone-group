@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ik(du#-md%x62yed&38c5jm6-g(_clmw!ft7mo7p)^qjp^=lm8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['hotzone-se.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['hotzone-p.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -84,10 +84,21 @@ WSGI_APPLICATION = 'hotzone_config.wsgi.application'
 #     'default': env.dj_db_url('DATABASE_URL')
 # }
 
+# DATABASES = {
+#  'default': {
+#  'ENGINE': 'django.db.backends.sqlite3',
+#  'NAME': BASE_DIR / 'db.sqlite3',
+#  }
+# }
+
 DATABASES = {
  'default': {
- 'ENGINE': 'django.db.backends.sqlite3',
- 'NAME': BASE_DIR / 'db.sqlite3',
+ 'ENGINE': 'django.db.backends.postgresql',
+ 'NAME': 'hotzone',
+ 'USER': 'hz_admin',
+ 'PASSWORD': '12345',
+ 'HOST': 'localhost',
+ 'PORT': '',
  }
 }
 
