@@ -1,0 +1,21 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{% static 'login/index.css' %}">
+    <title>Landing Page</title>
+</head>
+<body>
+    <div class="landingcontainer">
+        <div class="landingform">
+            <div class="headercontainer">
+                <h1 style="margin: 3px;"><b>HotZone</b></h1>
+            </div>
+            <button onclick="window.location.href='/view_data'" class="viewdata">View Patient Data Records</button>
+            <button onclick="window.location.href='/add'" class="createdata">Create Patient Visit Records</button>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+    <title>Hotzone-Login</title>
+</head>
+<body>
+    <div class="logincontainer">
+        <form action='/authenticate_user/'  method = 'post' type='POST'>
+        {% csrf_token %}
+            <div class="headercontainer">
+                <h1>HotZone</h1>
+            </div>
+    
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+    
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+    
+                <button type="submit">Login</button>
+                {% comment %} <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label> {% endcomment %}
+                {% if isError %}
+                <label style="color: red">
+                    Invalid Credentials
+                </label>
+                {% endif %}
+            </div>
+    
+        </form>
+    </div>
+    
+</body>
+</html>
