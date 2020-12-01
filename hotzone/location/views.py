@@ -37,7 +37,6 @@ def add(request):
         if(request.user.is_authenticated):
             ret_data = []
 
-
             cases = Case.objects.all()
             CASES=[]
             for case in cases:
@@ -46,8 +45,9 @@ def add(request):
                 temp['virus'] = case.infection.virus
                 print(temp)
                 CASES.append(temp)
-
+    
             return render(request, 'application/add.html', {'cases': CASES})
+            #return render(request, 'application/add.html', {'cases': CASES})
         else:
             return render(request, 'login/login.html')
             
@@ -63,14 +63,35 @@ def get_locs(request):
         res.append(temp)
     return JsonResponse(res, safe=False)
 
-def getall_case(request):
+def get_virus(request):
+
+    #try:
+    if(request.user.is_authenticated):
+
+        virus_list = []
+
+        all_virus = Virus.objects.all()
+
+        for each_virus in all_virus:
+
+            virus_list.append(each_virus.virus)
+    
+        return render(request, 'application/viewdata_prelim.html', {'virus_list': virus_list})
+    else:
+        return render(request, 'login/login.html')
+        
+    # except:
+    # return render(request, 'login/login.html')
+
+def getall_case(request,virus):
 
     try:
         if(request.user.is_authenticated):
-
+            print(virus)
+            infection = Virus.objects.get(virus=virus)
             ret_data = []
 
-            cases = Case.objects.all()
+            cases = Case.objects.filter(infection_id=infection.pk)
 
             for case in cases:
 
@@ -80,7 +101,7 @@ def getall_case(request):
                 for each_loc in visited_list:
 
                     each_locs_info = Visit_Info.objects.filter(case_visit=case.pk, location_visit = each_loc.pk)
-                    print('sid',each_locs_info[0])
+                    #print('sid',each_locs_info[0])
 
                     for each_loc_info in each_locs_info:
                         loc = {
@@ -96,20 +117,21 @@ def getall_case(request):
                             locations.append(loc)
 
                 print("locations for",case)
-                print(locations)
+                #print(locations)
                     
                 tmp_case_obj = {
                     'case_num': case.case_num,
                     'confirm_date': str(case.confirm_date),
                     'case_class': case.case_class,
                     'name': case.patient.name,
+                    'id_num': case.patient.id_num,
                     'birth_date': str(case.patient.birth_date),
                     'virus': case.infection.virus,
                     'locations': locations,
                 }
                 ret_data.append(tmp_case_obj)
         
-            return render(request, 'application/viewdata.html', {'cases': ret_data})
+            return render(request, 'application/viewdata.html', {'cases': ret_data, 'virus':infection})
         else:
             return render(request, 'login/login.html')
             

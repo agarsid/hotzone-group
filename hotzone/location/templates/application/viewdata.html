@@ -5,66 +5,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'login/index.css' %}">
-
+    <style>
+    .modal-content {
+        height:auto;
+        width:auto;
+        margin:0 auto;
+        z-index:10;
+        display:none;
+        font-size: larger;
+        border:5px solid #cccccc;
+        border-radius:10px;
+        padding: 7px;
+        background-color: #fefefe;
+        position: absolute; 
+        cursor: pointer;
+    }
+    ul {
+        padding-top: 5px;
+        margin: 0;
+    }
+    .modal ul {
+        padding-left: 15px;
+        list-style-type:none;
+    }
+    td {
+        font-size: larger;
+    }
+    </style>
     <title>View Data</title>
 </head>
 
 <body>
     {% include 'application/navbar.html' %}
     <div class="tablecontainer">
-        
-            {% comment %} <div class="headercontainer">
+        <h1>{{virus.virus}} ({{virus.disease}}) is infectious for {{virus.inf_period}} days</h1>
+        {% comment %} <div class="headercontainer">
                 <h1 style="margin: 3px;"><b>HotZone</b></h1>
             </div> {% endcomment %}
             <div class="searchinput">
                 <input type="text" style="height: 6vh" placeholder="Enter Case ID" id ="case_id" name="case_id" required>
                 <button class="search" onclick = "searchCase()" type="submit">Search</button>
             </div>
+             
             <table id="result">
                 <col style="width:5%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:53%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:70%">
                 <thead>
                     <tr>
                         <th>CASE ID</th>
-                        <th>VIRUS</th>
                         <th>DATE CONFIRMED</th>
                         <th>ORIGIN</th>
                         <th>PATIENT NAME</th>
-                        <th>D.O.B.</th>
                         <th>LOCATIONS VISITED</th>
-
                     </tr>
                     <thead>
                     <tbody>
                         
                         {% for case in cases %}
-                        <tr>
+
+                        <tr id="{{case.case_num}}">
                             <td>{{case.case_num}}</td>
-                            <td>{{case.virus}}</td>
                             <td>{{case.confirm_date}}</td>
                             <td>{{case.case_class}}</td>
-                            <td>{{case.name}}</td>
-                            <td>{{case.birth_date}}</td>
-                            <td>    
-                                {% for location in case.locations %}
-                                <h3>{{location.place_name}}</h3>
+                            <td><a class="patient" href="javascript:void(0);">{{case.name}}</a></td>
+                            <div id="myModal" class="modal">
+                                <div class="modal-content" id="patient{{case.case_num}}">
+                                    HKID: {{case.id_num}}<br>
+                                    DOB: {{case.birth_date}}
+                                </div>
+                            </div>
+                            <td>
+                                <a class="locations" href="javascript:void(0);">Visits Detail</a>
                                 <ul>
-                                    <li> <strong>Address: </strong>{{location.address}}</li>
-                                    <li> <strong>Date From: </strong>{{location.date_from}}</li>
-                                    <li> <strong>Date To: </strong>{{location.date_to}}</li>
-                                    <li> <strong>X-Coordinate:</strong> {{location.x_coord}}</li>
-                                    <li> <strong>Y-Coordinate:</strong> {{location.y_coord}}</li>
-                                    <li> <strong>Category: </strong>{{location.category}}</li>
+                                    {% for location in case.locations %}             
+                                    <li>{{location.place_name}}</li>
+                                    {% endfor %}
                                 </ul>    
-                                {% endfor %}
-                                
                             </td>
+                            <div id="myModal" class="modal">
+                                <div class="modal-content" id="locations{{case.case_num}}">
+                                  {% for location in case.locations %}
+                                  {% if case.locations.0 != location %}
+                                  <hr>
+                                  {% endif %}
+                                  <strong>{{location.place_name}}</strong> ({{location.category}})
+                                  <ul>
+                                    <li> <em>At</em> ({{location.x_coord}}, {{location.y_coord}})</li>
+                                    {% if location.address != "" %}
+                                    <li> <strong>Address: </strong>{{location.address}}</li>
+                                    {% endif %}
+                                      <li> <em>From</em> {{location.date_from}} <em>To</em> {{location.date_to}}</li>
+                                  </ul> 
+                                  {% endfor %}
+                                </div>
+                              
+                              </div>
                         </tr>
                         {% endfor %}
 
@@ -74,6 +113,7 @@
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
     function searchCase() {
   
@@ -96,5 +136,28 @@
             }
         }
     }
+$("td a.patient").hover(function(){
+    var pos = $(this).offset();
+    var width = $("#patient"+$(this).closest("tr").attr("id")).outerWidth();
+    $("#patient"+$(this).closest("tr").attr("id")).css({
+        top: pos.top + "px",
+        left: (pos.left - width - 5) + "px"
+    });
+    $("#patient"+$(this).closest("tr").attr("id")).toggle()
+}, function(){
+    $("#patient"+$(this).closest("tr").attr("id")).toggle()
+})
+$("td a.locations").hover(function(){
+    var pos = $(this).offset();
+    var width = $("#locations"+$(this).closest("tr").attr("id")).outerWidth();
+    $("#locations"+$(this).closest("tr").attr("id")).css({
+        top: pos.top + "px",
+        left: (pos.left - width - 5) + "px"
+    });
+    $("#locations"+$(this).closest("tr").attr("id")).toggle()
+}, function(){
+    $("#locations"+$(this).closest("tr").attr("id")).toggle()
+})
 </script>
 </html>
+

@@ -1,0 +1,34 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+
+    <title>View Data</title>
+</head>
+
+<body>
+    {% include 'application/navbar.html' %}
+    <div class="tablecontainer">
+        
+            {% comment %} <div class="headercontainer">
+                <h1 style="margin: 3px;"><b>HotZone</b></h1>
+            </div> {% endcomment %}
+            <table id="result">
+                <h2>Select a virus:</h2>
+                <thead>                        
+                        {% for virus in virus_list %}
+                        <tr>
+                            <td><a href="{% url 'view_data' virus %}">{{virus}}</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+        
+    </div>
+
+</body>
+
+</html>

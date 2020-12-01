@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'hotzone_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'deploydemo',
-        'USER': 'hch',
-        'PASSWORD': 'comp3297',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
