@@ -9,9 +9,10 @@
 </head>
 <body>
     {% include 'application/navbar.html' %}    
-
-    {% if clusters %}
+    
+    
     <div class="container" style="width: auto;">
+        {% if clusters %}
         <h1>Clusters for the selected virus</h1>
         {% for cluster in clusters %}
         <button type="button" class="collapsible"><i class="arrow down"></i>    View cluster <strong>{{ forloop.counter }}</strong></button>
@@ -45,10 +46,10 @@
             </table>
         </div>
     {% endfor %}
-    </div>
     {% else %}
-        <h1>No Cluster</h1>
+        <h1>No Cluster Formed Yet</h1>
     {% endif %}
+    </div>
     
 </body>
 

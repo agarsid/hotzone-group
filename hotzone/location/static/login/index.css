@@ -132,6 +132,13 @@ form {
     font-size: large;
 }
 
+.clusterdata{
+  background-color: darkgreen;
+  width: 50vh;
+  height: 8vh;
+  font-size: large;
+}
+
 .createdata{
     background-color: midnightblue;
     width: 50vh;
@@ -259,4 +266,13 @@ blockquote {
   padding: 15px;
   align-items: center;
   justify-content: center;
+}
+
+
+.virus {
+  color: black
+}
+
+.virus:hover {
+  color: red;
 }

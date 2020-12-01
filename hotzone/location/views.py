@@ -184,23 +184,7 @@ def addToDb(request):
         return render(request, 'login/login.html')
 
 def cluster_prelim(request):
-    # try:
-    #     if(request.user.is_authenticated):
-
-    #         virus = Virus.objects.all()
-    #         virus_list = []
     
-    #         for each_virus in virus:
-    #             virus_list.append(each_virus.virus)
-
-    #         return render(request, 'application/cluster_prelim.html', {'virus': virus_list})
-    #     else:
-    #         return render(request, 'login/login.html')
-            
-    # except:
-    #     pass
-        # return render(request, 'login/login.html')
-
     try:
         if(request.user.is_authenticated):
 

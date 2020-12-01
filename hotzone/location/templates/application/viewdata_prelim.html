@@ -18,14 +18,17 @@
             </div> {% endcomment %}
             <table id="result">
                 <h2>Select a virus:</h2>
-                <thead>                        
+                <thead>             
+                        <th>
+                            Virus Name
+                        </th>
+                </thead>           
                         {% for virus in virus_list %}
                         <tr>
-                            <td><a href="{% url 'view_data' virus %}">{{virus}}</a></td>
+                            <td><a class = "virus" href="{% url 'view_data' virus %}">{{virus}}</a></td>
                         </tr>
                         {% endfor %}
-
-                    </table>
+            </table>
     </div>
 
 </body>
