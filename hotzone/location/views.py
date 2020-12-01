@@ -184,19 +184,37 @@ def addToDb(request):
         return render(request, 'login/login.html')
 
 def cluster_prelim(request):
+    # try:
+    #     if(request.user.is_authenticated):
+
+    #         virus = Virus.objects.all()
+    #         virus_list = []
+    
+    #         for each_virus in virus:
+    #             virus_list.append(each_virus.virus)
+
+    #         return render(request, 'application/cluster_prelim.html', {'virus': virus_list})
+    #     else:
+    #         return render(request, 'login/login.html')
+            
+    # except:
+    #     pass
+        # return render(request, 'login/login.html')
+
     try:
         if(request.user.is_authenticated):
 
-            virus = Virus.objects.all()
             virus_list = []
-    
-            for each_virus in virus:
-                virus_list.append(each_virus.virus)
 
-            return render(request, 'application/cluster_prelim.html', {'virus': virus_list})
+            all_virus = Virus.objects.all()
+
+            for each_virus in all_virus:
+
+                virus_list.append(each_virus.virus)
+        
+            return render(request, 'application/cluster_prelim.html', {'virus_list': virus_list})
         else:
             return render(request, 'login/login.html')
-            
     except:
         return render(request, 'login/login.html')
 
@@ -256,52 +274,57 @@ def cluster(vector_4d, distance, time, minimum_cluster, misc_data):
     return cluster_data
 
 def clustering(request):
-    #cluster_param = request.GET
+    try:
+        if(request.user.is_authenticated):
+            cluster_param = request.GET
     
-    #virus = cluster_param.get('virus')
-    #D = cluster_param.get('distance')
-    #T = cluster_param.get('days')
-    #C = cluster_param.get('size')
+            virus = cluster_param.get('virus')
+            D = int(cluster_param.get('D'))
+            T = int(cluster_param.get('T'))
+            C = int(cluster_param.get('C'))
 
-    virus = "SARS"
-    D = 200
-    T = 3
-    C = 2
+            if (not Virus.objects.filter(virus=virus).exists()):
+                return JsonResponse({"msg":"error"})
+            else:
+                infection = Virus.objects.get(virus=virus)
+                
+            record_list=[]
+            misc_list=[]
+            cases = Case.objects.filter(infection=infection.pk)
+            
+            if(len(cases)<1):
+                return render(request, 'application/cluster.html', {'clusters': []})
 
-    if (not Virus.objects.filter(virus=virus).exists()):
-        return JsonResponse({"msg":"error"})
-    else:
-        infection = Virus.objects.get(virus=virus)
-    
-    record_list=[]
-    misc_list=[]
-    cases = Case.objects.filter(infection=infection.pk)
+            for each_case in cases:
+                visited_list = each_case.visited.all()
 
-    for each_case in cases:
-        visited_list = each_case.visited.all()
+                for each_loc in visited_list:
+                    each_locs_info = Visit_Info.objects.filter(case_visit=each_case.pk, location_visit = each_loc.pk)
 
-        for each_loc in visited_list:
-            each_locs_info = Visit_Info.objects.filter(case_visit=each_case.pk, location_visit = each_loc.pk)
+                    for each_loc_info in each_locs_info:
 
-            for each_loc_info in each_locs_info:
+                        if (each_loc_info.date_from == each_loc_info.date_to):
+                            origin = date(2020, 1, 1)
 
-                if (each_loc_info.date_from == each_loc_info.date_to):
-                    origin = date(2020, 1, 23)
+                            record = [each_loc.x_coord, each_loc.y_coord, (each_loc_info.date_from - origin).days, each_case.case_num]
+                            misc = [each_loc.place_name, str(each_loc_info.date_from)]
 
-                    record = [each_loc.x_coord, each_loc.y_coord, (each_loc_info.date_from - origin).days, each_case.case_num]
-                    misc = [each_loc.place_name, str(each_loc_info.date_from)]
+                            if record not in record_list:
+                                record_list.append(record)
+                                misc_list.append(misc)
+            print('np', np.array(record_list))
+            data = cluster(np.array(record_list), D, T, C, np.array(misc_list))
 
-                    if record not in record_list:
-                        record_list.append(record)
-                        misc_list.append(misc)
+            # print("Total clusters:", len(data))
+            # for idx,obj in enumerate(data):
+            #     print("Cluster", idx, " size:", len(obj))
+            #     for visit in obj:
+            #         print("(x:{}, y:{}, caseNo:{}, name:{}, date:{})".format(visit['x_coord'], visit['y_coord'], visit['case_num'], visit['place_name'], visit['visit_date']))
+            #     print()
+            # print(data)
 
-    data = cluster(np.array(record_list), D, T, C, np.array(misc_list))
-
-    print("Total clusters:", len(data))
-    for idx,obj in enumerate(data):
-        print("Cluster", idx, " size:", len(obj))
-        for visit in obj:
-            print("(x:{}, y:{}, caseNo:{}, name:{}, date:{})".format(visit['x_coord'], visit['y_coord'], visit['case_num'], visit['place_name'], visit['visit_date']))
-        print()
-
-    return render(request, 'application/cluster.html', {'clusters': data})
+            return render(request, 'application/cluster.html', {'clusters': data})
+        else:
+            return render(request, 'login/login.html')
+    except:
+        return render(request, 'login/login.html')

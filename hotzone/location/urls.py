@@ -11,4 +11,6 @@ urlpatterns = [
     path('view_data/<virus>', views.getall_case, name="view_data"),
     path('add_to_db/', views.addToDb),
     path('view_data_prelim/', views.get_virus),
+    path('cluster_form/', views.cluster_prelim),
+    path('cluster/', views.clustering, name="cluster"),
 ]

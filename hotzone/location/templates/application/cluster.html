@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    {% include 'application/navbar.html' %}    
+
+    {% if clusters %}
+    <div class="container" style="width: auto;">
+        <h1>Clusters for the selected virus</h1>
+        {% for cluster in clusters %}
+        <button type="button" class="collapsible"><i class="arrow down"></i>    View cluster <strong>{{ forloop.counter }}</strong></button>
+        <div class="content">
+            <table id="result">
+                <col style="width:25%">
+                <col style="width:30%">
+                <col style="width:25%">
+                <col style="width:20%">
+                
+                <thead>
+                    <tr>
+                        <th>Location Name</th>
+                        <th>1980 Grid Coordinates</th>
+                        <th>Date of Visit</th>
+                        <th>Case Number</th>
+                    </tr>
+                <thead>
+                <tbody>
+                        
+                    {% for location in cluster %}
+
+                        <tr>
+                            <td>{{location.place_name}}</td>
+                            <td>X: {{location.x_coord}} ; Y: {{location.y_coord}}</td>
+                            <td>{{location.visit_date}}</td>
+                            <td>{{location.case_num}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+        <h1>No Cluster</h1>
+    {% endif %}
+    
+</body>
+
+<style>
+    /* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 12px 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+</style>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login/index.css' %}">
+
+    <title>View Data</title>
+</head>
+
+<body>
+    {% include 'application/navbar.html' %}
+    <form class="clusterForm" action="{% url 'cluster' %}" action="GET">
+        <label for="virus">Select the virus:</label>
+        <select name="virus" id="virus_select">
+            {% for virus in virus_list %}
+                <option value="{{virus}}">{{virus}}</option>
+            {% endfor %}
+        </select>
+        <p>
+            <label for="D">Interlocation distance threshold (m)</label>
+            <input type="text" name="D" id="inp1" value ="200" placeholder="200" required>
+            <label for="T">Proximity in time threshold (days)</label>
+            <input type="text" name="T" id="inp2" value ="3" placeholder="3" required>
+            <label for="C">Minimum Cluster Size</label>
+            <input type="text" name="C" id="inp3" value ="2" placeholder="2" required>
+        </p>
+        <input type="submit">
+    </form>
+</body>
+
+<style>
+    .clusterForm{
+        width: 70%;
+        margin: 100px auto;
+    }
+</style>
+
+</html>
